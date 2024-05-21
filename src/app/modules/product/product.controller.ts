@@ -5,8 +5,8 @@ const createProduct = async (req: Request, res: Response) => {
   try {
 
     const product = req.body    
-    const { product: productData } = req.body;
-    const result = await ProductServices.createProductIntoDB(productData);
+    // const { product: productData } = req.body;
+    const result = await ProductServices.createProductIntoDB(product);
 
     res.status(200).json({
       success: true,

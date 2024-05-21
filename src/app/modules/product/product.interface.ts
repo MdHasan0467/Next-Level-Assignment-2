@@ -1,5 +1,3 @@
-import { Schema, model, connect } from 'mongoose';
-
 export type Tvariant = {
     type: string,
     value: string
@@ -17,7 +15,7 @@ export type Product = {
     price: number,
     category: string,
     tags: string[],
-    variants: [Tvariant],
+    variants: Tvariant[],
         inventory: Tinventory
     };
 
