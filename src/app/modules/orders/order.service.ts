@@ -7,7 +7,7 @@ const createOrderIntoDB = async (orderData: any) => {
     // Create the order
     const order = await OrderModel.create(orderData);
 
-    // 
+    return order;
   } catch (error) {
     console.error('Error decrementing product quantity:', error);
     throw error;
@@ -15,19 +15,13 @@ const createOrderIntoDB = async (orderData: any) => {
 };
 
 const getOrderIntoDB = async (email: string) => {
-
-const query = email ? {email} : {};
-const result = await OrderModel.find(query);
-return result;
-
-//   console.log('searchTerm', searchTerm);
-
-//   const regex = new RegExp(searchTerm, 'i');
-//   return await ProductModel.find({
-//       $or: [
-//           { email: { $regex: regex } }
-//       ]
-//   })
+  try {
+    const query = email ? { email } : {};
+    const result = await OrderModel.find(query);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const OrderService = {

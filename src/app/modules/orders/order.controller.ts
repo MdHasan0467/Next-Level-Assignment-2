@@ -52,13 +52,22 @@ const getAllOrders = async (req: Request, res: Response) => {
     const email = req.query.email;
     console.log(email);
     const result = await OrderService.getOrderIntoDB(email as string);
+
     console.log('result', result);
 
-    return res.json({
-      success: true,
-      message: `Order matching search term '${email}' fetched successfully!`,
-      data: result,
-    });
+    if(result.length !== 0){
+      return res.status(200).json({
+        success: true,
+        message: `Order matching search term '${email}' fetched successfully!`,
+        data: result,
+      });
+    }else{
+      return res.status(404).json({
+        success: false,
+        message: "invalid email address! please try with a valid email address",
+      });
+    }
+
   } catch (err: any) {
     return res.status(500).json({
       success: false,
