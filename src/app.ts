@@ -34,6 +34,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 
 app.get('/', (req: Request, res: Response) => {
-res.send('Server is running');
+res.send('Server is running!');
 });
 export default app;
