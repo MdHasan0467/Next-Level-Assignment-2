@@ -18,11 +18,11 @@ app.use('/api/orders', OrderRoute)
 
 
 // 404 Error Handler
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.get("*", (req: Request, res: Response) => {
     res.status(404).json({
         success: false,
-        message: "Route not found"
-       });
+        message: "Route not found!",
+    });
 });
 
 // Global Error Handler
