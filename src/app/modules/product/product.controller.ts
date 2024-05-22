@@ -6,7 +6,6 @@ const createProduct = async (req: Request, res: Response) => {
   try {
 
     const product = req.body    
-    // const { product: productData } = req.body;
     const result = await ProductServices.createProductIntoDB(product);
 
     res.status(200).json({
@@ -19,8 +18,6 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-
-// Controller to get all products
 const getAllProducts = async (req: Request, res: Response) => {
   try {
       const products = await ProductModel.find();
@@ -42,10 +39,8 @@ const getProductById = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
 
-    // Query the database to find the product by its ID
     const product = await ProductModel.findById(productId);
 
-    // If the product is found, return success response with product data
     if (product) {
       return res.json({
         success: true,
@@ -53,14 +48,67 @@ const getProductById = async (req: Request, res: Response) => {
         data: product
       });
     } else {
-      // If product is not found, return appropriate error response
       return res.status(404).json({
         success: false,
         message: 'Product not found'
       });
     }
   } catch (error) {
-    // Handle any unexpected errors
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal Server Error'
+    });
+  }
+};
+
+const updateProductById = async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.productId;
+    const updatedProductData = req.body;
+
+    const updatedProduct = await ProductModel.findByIdAndUpdate(productId, updatedProductData, { new: true });
+
+    if (updatedProduct) {
+      return res.json({
+        success: true,
+        message: 'Product updated successfully!',
+        data: updatedProduct
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal Server Error'
+    });
+  }
+};
+
+const deleteProductById = async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.productId;
+
+    const deletedProduct = await ProductModel.findByIdAndDelete(productId);
+
+    if (deletedProduct) {
+      return res.json({
+        success: true,
+        message: 'Product deleted successfully!',
+        data: null
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+  } catch (error) {
     console.error(error);
     return res.status(500).json({
       success: false,
@@ -70,8 +118,12 @@ const getProductById = async (req: Request, res: Response) => {
 };
 
 
+
+
 export const ProductController = {
     createProduct,
     getAllProducts,
-    getProductById
+    getProductById,
+    updateProductById,
+    deleteProductById
   };

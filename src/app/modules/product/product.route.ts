@@ -6,9 +6,8 @@ const router = express.Router();
 
 router.post('/create-product', ProductController.createProduct);
 router.get('/products', ProductController.getAllProducts);
-// Define route for retrieving a specific product by ID
 router.get('/:productId', ProductController.getProductById);
-
-
+router.put('/:productId', ProductController.updateProductById);
+router.delete('/:productId', ProductController.deleteProductById);
 
 export const ProductRoutes = router;
