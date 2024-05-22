@@ -16,8 +16,6 @@ app.use('/api/products', ProductRoutes)
 
 
 
-
-
 app.get('/', (req: Request, res: Response) => {
 res.send('Server is running');
 
