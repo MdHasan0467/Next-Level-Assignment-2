@@ -32,7 +32,7 @@ To clone and install this project locally, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git https://github.com/MdHasan0467/Next-Level-Assignment-2
+   git clone https://github.com/MdHasan0467/Next-Level-Assignment-2
    ```
 
 2. **Install dependencies:**
