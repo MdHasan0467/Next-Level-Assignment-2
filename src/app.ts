@@ -20,7 +20,7 @@ app.use('/api/orders', OrderRoute)
 // 404 Error Handler
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).json({
-        succes: false,
+        success: false,
         message: "Route not found"
        });
 });
