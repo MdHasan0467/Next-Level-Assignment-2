@@ -13,7 +13,10 @@ const createProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({
+      success:true,
+      message:"Not create product"
+    })
   }
 };
 
@@ -27,11 +30,11 @@ const getAllProducts = async (req: Request, res: Response) => {
       message: `Products matching search term '${searchTerm}' fetched successfully!`,
       data: result
     });
-  } catch (err: any) {
+  } catch (err) {
     return res.status(500).json({
       success: false,
       message: "Failed to fetch products",
-      error: err.message
+    
     });
   }
 };
@@ -55,7 +58,6 @@ const getProductById = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       success: false,
       message: 'Internal Server Error'
@@ -83,8 +85,7 @@ const updateProductById = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({
+      return res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -110,7 +111,6 @@ const deleteProductById = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       success: false,
       message: 'Internal Server Error'

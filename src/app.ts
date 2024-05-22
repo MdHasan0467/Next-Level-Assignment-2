@@ -20,9 +20,5 @@ app.use('/api/orders', OrderRoute)
 
 app.get('/', (req: Request, res: Response) => {
 res.send('Server is running');
-
 });
-
-console.log(process.cwd());
-
 export default app;
