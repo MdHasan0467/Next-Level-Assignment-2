@@ -18,9 +18,18 @@ const getProductIntoDB = async (searchTerm: string) => {
   }).select('name description price category variants inventory');
 };
 
-
 const getProductByIDIntoDB = async (productId: string) => {
   const result = await ProductModel.findById(productId);
+  return result
+}
+
+const updatedProductByIDIntoDb = async (productId: string, updatedProductData: string) => {
+  const result = await ProductModel.findByIdAndUpdate(productId, updatedProductData, { new: true });
+  return result
+}
+
+const deleteProductByIdIntoDB = async (productId : string) => {
+  const result = await ProductModel.findByIdAndDelete(productId);
   return result
 }
 
@@ -31,5 +40,7 @@ const getProductByIDIntoDB = async (productId: string) => {
   export const ProductServices = {
     createProductIntoDB,
     getProductIntoDB,
-    getProductByIDIntoDB
+    getProductByIDIntoDB,
+    updatedProductByIDIntoDb,
+    deleteProductByIdIntoDB
   };

@@ -40,9 +40,8 @@ const getAllProducts = async (req: Request, res: Response) => {
 const getProductById = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
-    console.log('productId', productId);
+    
     const result = await ProductServices.getProductByIDIntoDB(productId);
-    console.log(result);
 
     if (result) {
       return res.json({
@@ -70,13 +69,13 @@ const updateProductById = async (req: Request, res: Response) => {
     const productId = req.params.productId;
     const updatedProductData = req.body;
 
-    const updatedProduct = await ProductModel.findByIdAndUpdate(productId, updatedProductData, { new: true });
+    const result = await ProductServices.updatedProductByIDIntoDb(productId, updatedProductData);
 
-    if (updatedProduct) {
+    if (result) {
       return res.json({
         success: true,
         message: 'Product updated successfully!',
-        data: updatedProduct
+        data: result
       });
     } else {
       return res.status(404).json({
@@ -97,9 +96,9 @@ const deleteProductById = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
 
-    const deletedProduct = await ProductModel.findByIdAndDelete(productId);
+    const result = await ProductServices.deleteProductByIdIntoDB(productId);
 
-    if (deletedProduct) {
+    if (result) {
       return res.json({
         success: true,
         message: 'Product deleted successfully!',
