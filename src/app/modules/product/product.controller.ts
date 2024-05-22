@@ -20,18 +20,23 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-      const products = await ProductModel.find();
-      res.status(200).json({
-          success: true,
-          message: "Products fetched successfully!",
-          data: products
-      });
-  } catch (err:any) {
-      res.status(500).json({
-          success: false,
-          message: "Failed to fetch products",
-          error: err.message
-      });
+    const searchTerm = req.query.searchTerm as string;
+
+
+
+    const result = await ProductServices.getProductIntoDB(searchTerm);
+
+    return res.json({
+      success: true,
+      message: `Products matching search term '${searchTerm}' fetched successfully!`,
+      data: result
+    });
+  } catch (err: any) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch products",
+      error: err.message
+    });
   }
 };
 
@@ -120,10 +125,13 @@ const deleteProductById = async (req: Request, res: Response) => {
 
 
 
+
+
 export const ProductController = {
     createProduct,
     getAllProducts,
     getProductById,
     updateProductById,
     deleteProductById
+    
   };
