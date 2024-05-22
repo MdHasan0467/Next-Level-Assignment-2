@@ -15,7 +15,6 @@ const createOrder = async (req: Request, res: Response) => {
       return res.status(404).json({
         success: false,
         message: 'Product is already stock out!',
-        data: result,
       });
     }
 
