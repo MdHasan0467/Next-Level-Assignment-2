@@ -19,10 +19,17 @@ const getProductIntoDB = async (searchTerm: string) => {
 };
 
 
+const getProductByIDIntoDB = async (productId: string) => {
+  const result = await ProductModel.findById(productId);
+  return result
+}
+
+
 
 
 
   export const ProductServices = {
     createProductIntoDB,
-    getProductIntoDB
+    getProductIntoDB,
+    getProductByIDIntoDB
   };

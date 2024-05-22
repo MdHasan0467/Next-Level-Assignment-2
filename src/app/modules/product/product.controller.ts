@@ -21,9 +21,6 @@ const createProduct = async (req: Request, res: Response) => {
 const getAllProducts = async (req: Request, res: Response) => {
   try {
     const searchTerm = req.query.searchTerm as string;
-
-
-
     const result = await ProductServices.getProductIntoDB(searchTerm);
 
     return res.json({
@@ -43,14 +40,15 @@ const getAllProducts = async (req: Request, res: Response) => {
 const getProductById = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
+    console.log('productId', productId);
+    const result = await ProductServices.getProductByIDIntoDB(productId);
+    console.log(result);
 
-    const product = await ProductModel.findById(productId);
-
-    if (product) {
+    if (result) {
       return res.json({
         success: true,
         message: 'Product fetched successfully!',
-        data: product
+        data: result
       });
     } else {
       return res.status(404).json({
