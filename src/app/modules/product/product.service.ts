@@ -1,49 +1,45 @@
-import { ProductModel } from "../product.model";
-import { Product } from "./product.interface";
-
-
+import { ProductModel } from './product.model';
+import { Product } from './product.interface';
 
 const createProductIntoDB = async (product: Product) => {
-    const result = await ProductModel.create(product);
-    return result;
-  };
+  const result = await ProductModel.create(product);
+  return result;
+};
 
 const getProductIntoDB = async (searchTerm: string) => {
   const regex = new RegExp(searchTerm, 'i');
   return await ProductModel.find({
-      $or: [
-          { name: { $regex: regex } },
-          { description: { $regex: regex } }
-      ]
+    $or: [{ name: { $regex: regex } }, { description: { $regex: regex } }],
   }).select('name description price category variants inventory');
 };
 
 const getProductByIDIntoDB = async (productId: string) => {
   const result = await ProductModel.findById(productId);
-  return result
-}
+  return result;
+};
 
-const updatedProductByIDIntoDb = async (productId: string, updatedProductData: any) => {
-  const result = await ProductModel.findByIdAndUpdate(productId, updatedProductData, { new: true });
+const updatedProductByIDIntoDb = async (
+  productId: string,
+  updatedProductData: any,
+) => {
+  const result = await ProductModel.findByIdAndUpdate(
+    productId,
+    updatedProductData,
+    { new: true },
+  );
 
+  return result;
+};
 
-  
-  return result
-}
-
-const deleteProductByIdIntoDB = async (productId : string) => {
+const deleteProductByIdIntoDB = async (productId: string) => {
   const result = await ProductModel.findByIdAndDelete(productId);
-  return result
-}
+  return result;
+};
 
-
-
-
-
-  export const ProductServices = {
-    createProductIntoDB,
-    getProductIntoDB,
-    getProductByIDIntoDB,
-    updatedProductByIDIntoDb,
-    deleteProductByIdIntoDB
-  };
+export const ProductServices = {
+  createProductIntoDB,
+  getProductIntoDB,
+  getProductByIDIntoDB,
+  updatedProductByIDIntoDb,
+  deleteProductByIdIntoDB,
+};

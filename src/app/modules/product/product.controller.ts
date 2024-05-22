@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import { ProductServices } from './product.service';
+import { TProductSchema } from './products.validation';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
 
-    const product = req.body    
-    const result = await ProductServices.createProductIntoDB(product);
+    const product = req.body 
+    const zodParseData = TProductSchema.parse(product);  
+    const result = await ProductServices.createProductIntoDB(zodParseData);
 
     res.status(200).json({
       success: true,
@@ -14,7 +16,7 @@ const createProduct = async (req: Request, res: Response) => {
     });
   } catch (err) {
     res.status(500).json({
-      success:true,
+      success:false,
       message:"Not create product"
     })
   }
@@ -34,7 +36,7 @@ const getAllProducts = async (req: Request, res: Response) => {
     return res.status(500).json({
       success: false,
       message: "Failed to fetch products",
-    
+
     });
   }
 };
@@ -102,7 +104,6 @@ const deleteProductById = async (req: Request, res: Response) => {
       return res.json({
         success: true,
         message: 'Product deleted successfully!',
-        data: null
       });
     } else {
       return res.status(404).json({

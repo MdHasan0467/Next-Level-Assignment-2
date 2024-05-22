@@ -15,14 +15,18 @@ app.use(cors());
 app.use('/api/products', ProductRoutes)
 app.use('/api/orders', OrderRoute)
 
+app.get('/', (req: Request, res: Response) => {
+    res.send('Server is running!');
+
+
 
 
 // 404 Error Handler
-app.get("*", (req: Request, res: Response) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).json({
         success: false,
-        message: "Route not found!",
-    });
+        message: "Route not found"
+       });
 });
 
 // Global Error Handler
@@ -33,7 +37,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 
 
-app.get('/', (req: Request, res: Response) => {
-res.send('Server is running!');
+
 });
 export default app;
