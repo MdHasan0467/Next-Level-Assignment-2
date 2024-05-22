@@ -1,8 +1,3 @@
-
-
-
-
-
 import { Schema, model } from 'mongoose';
 import { Product, Tinventory, Tvariant } from './product/product.interface';
 

@@ -25,6 +25,9 @@ const getProductByIDIntoDB = async (productId: string) => {
 
 const updatedProductByIDIntoDb = async (productId: string, updatedProductData: string) => {
   const result = await ProductModel.findByIdAndUpdate(productId, updatedProductData, { new: true });
+
+
+  
   return result
 }
 
